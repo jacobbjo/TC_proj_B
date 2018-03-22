@@ -1,93 +1,51 @@
 from board import Board
 from piece import Piece
 
-def dfs(piece, path):
-    piece.board.print_board()
-    print(" ")
 
-    if piece.board.visited_all(path):
-        print("ALLLL VISITEDDDDDD!!!!!!!******************************************")
-        return path
+def warnsdorf(piece):
+    """ Based on Warnsdorf's rule for the knights tour problem but with an addition of a
+    incresing random weight as the number of unsuccessfull paths increases"""
 
-    path.append([piece.pos_x, piece.pos_y])
+    start = [piece.pos_x, piece.pos_y]
+    path = []
+    fails = 0
 
-    if piece.move_n():
-        #print("n")
-        path = dfs(piece, path)
-        #print("north out")
+    while not piece.board.visited_all(path):
+        piece.board.reset()
+        piece.move_to(start)
+        path = [start]
 
-    if piece.move_se():
-        #print("se")
-        path = dfs(piece, path)
+        for _ in range(piece.board.size_x * piece.board.size_y):
+            new_pos = piece.move_to_best(fails % 100)
 
-    if piece.move_w():
-        #print("w")
-        path = dfs(piece, path)
+            if new_pos is None:
+                fails += 1
+                break
+            path.append(new_pos)
 
-    if piece.move_ne():
-        #print("ne")
-        path = dfs(piece, path)
+    return path
 
-    if piece.move_s():
-        #print("s")
-        path = dfs(piece, path)
-
-    if piece.move_nw():
-        #print("nw")
-        path = dfs(piece, path)
-
-    if piece.move_e():
-        #print("e")
-        path = dfs(piece, path)
-
-    if piece.move_sw():
-        #print("sw")
-        path = dfs(piece, path)
-
-
-
-
-
-
-
-    #print(path)
-    if(len(path) > 1):
-        piece.board.unset_visited(path[-1][0], path[-1][1])
-        piece.move_to(path[-2][0], path[-2][1])
-        return path[:-1]
-    else:
-        piece.move_to(path[0][0], path[0][1])
-        return path
 
 def main():
-    print("Test")
-    brade = Board(10)
-    print("x: ", brade.size_x)
-    print("y: ", brade.size_y)
-    print(brade.squares)
+    while True:
+        inputa = input("\nEnter anything to run or \"q\" to quit")
+        if inputa == "q" or inputa == "Q":
+            break
+
+        print("#############################################################")
+        board = Board(10)
+        piece = Piece(board)
+
+        print("\nFinding path from [", piece.pos_x, ",", piece.pos_y,
+              "] to all other", board.size_x*board.size_y-1, "squares\n")
 
 
-    pjas = Piece(brade)
+        vag = warnsdorf(piece)
 
-    print("pjas x: ", pjas.pos_x)
-    print("pjas y: ", pjas.pos_y)
+        print("Length of found path:", len(vag))
+        print("Found path:")
 
-    print("pjas x: ", pjas.pos_x)
-    print("pjas y: ", pjas.pos_y)
-
-    print(brade.squares)
-
-
-
-
-    vag = dfs(pjas, [])
-    print(vag)
-
-    print("len(vag)", len(vag))
-    print("squares on board", brade.size_x*brade.size_y)
-
-
-
+        print(vag)
 
 
 if __name__ == "__main__":

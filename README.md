@@ -15,7 +15,7 @@ of the runtime.
 
 Written in Python 3.6
 
-Run with suitable Python interpreter
+Run with a suitable Python interpreter
 
 for example:
 

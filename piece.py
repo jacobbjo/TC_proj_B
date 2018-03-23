@@ -1,9 +1,12 @@
+# TC project B
+# Jacob Björkman
+
 from board import Board
 from random import randint
 
 
 class Piece(object):
-    """ Represents a piece on the chessboard """
+    """ Represents a piece on the checkerboard """
 
     def __init__(self, board, pos_x = None, pos_y = None):
         self.board = board

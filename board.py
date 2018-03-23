@@ -1,6 +1,8 @@
+# TC project B
+# Jacob Björkman
 
 class Board(object):
-    """ Represents a chessboard of size x*y"""
+    """ Represents a checkerboard of size x*y"""
     def __init__(self, size_x, size_y = None):
         self.size_x = size_x  # number of columns
         self.size_y = size_y  # number of rows

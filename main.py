@@ -1,3 +1,6 @@
+# TC project B
+# Jacob Björkman
+
 from board import Board
 from piece import Piece
 

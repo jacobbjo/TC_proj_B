@@ -24,7 +24,6 @@ class Test(TestCase):
         board = Board(10)
         piece = Piece(board, 0, 0)
 
-
         self.assertEqual(piece.get_coords("s"), [0, 3])
         self.assertEqual(piece.get_coords("se"), [2, 2])
 
